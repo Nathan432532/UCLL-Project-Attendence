@@ -1,0 +1,12 @@
+{
+    "datas": [
+        "date",
+        "season",
+        "ticket sold"
+    ],
+    "scores": {
+        "date": 0,
+        "season": 0,
+        "ticket sold": 0
+    }
+}
