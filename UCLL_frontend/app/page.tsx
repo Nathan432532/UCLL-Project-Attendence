@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Brain, Loader2, Sparkles } from "lucide-react"
@@ -9,8 +9,30 @@ import { PredictionCard } from "@/components/attendance/prediction-card"
 import { FactorsCard } from "@/components/attendance/factors-card"
 import { HistoryChart } from "@/components/attendance/history-chart"
 
+interface LatestPrediction {
+  match: string
+  date: string
+  predicted: number
+  actual: number
+  trend_pct: number
+  factors: {
+    opponent: string
+    ticket_sales: number
+    weather: string
+    opponent_tier: number
+    big6: boolean
+  }
+}
+
+interface ModelData {
+  meta: { n_test: number; n_train: number; train_mae: number; test_mae: number; r2_cv: number; accuracy_pct: number }
+  history: Array<{ match: string; actual: number; predicted: number }>
+  latest_prediction: LatestPrediction
+}
+
 export default function AttendancePrediction() {
   const [isPinkMode, setIsPinkMode] = useState(false)
+  const [modelData, setModelData] = useState<ModelData | null>(null)
   const clickCountRef = useRef(0)
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -40,6 +62,70 @@ export default function AttendancePrediction() {
 
   const accentColor = isPinkMode ? pinkPrimary : ohlRed
   const secondaryAccent = isPinkMode ? pinkSecondary : ohlGreen
+
+  const latest = modelData?.latest_prediction
+  const historyData = modelData?.history ?? []
+  const modelAccuracy = modelData?.meta?.accuracy_pct;
+
+  type FactorImpact = "positive" | "neutral" | "negative"
+  type FactorListItem = {
+    label: string
+    value: string
+    detail: string
+    impact: FactorImpact
+  }
+
+  const factorList: FactorListItem[] = latest
+    ? [
+        {
+          label: "Weather",
+          value: latest.factors.weather,
+          detail: `Forecast for ${latest.date}`,
+          impact: "positive",
+        },
+        {
+          label: "Opponent Tier",
+          value: `Tier ${latest.factors.opponent_tier}`,
+          detail: latest.factors.opponent,
+          impact: (latest.factors.opponent_tier === 3
+            ? "positive"
+            : latest.factors.opponent_tier === 1
+              ? "negative"
+              : "neutral") as FactorImpact,
+        },
+        {
+          label: "Ticket Sales",
+          value: `${latest.factors.ticket_sales?.toLocaleString() ?? "N/A"} sold`,
+          detail: "Historic count",
+          impact: "neutral",
+        },
+        {
+          label: "Big 6",
+          value: latest.factors.big6 ? "Yes" : "No",
+          detail: latest.factors.big6 ? "High interest" : "Standard interest",
+          impact: latest.factors.big6 ? "positive" : "neutral",
+        },
+      ]
+    : []
+
+  // Fetch model predictions from server API
+  useEffect(() => {
+    async function fetchModel() {
+      try {
+        const response = await fetch("/api/model-data")
+        if (!response.ok) {
+          throw new Error("Failed to load model data")
+        }
+
+        const data = await response.json()
+        setModelData(data)
+      } catch (err) {
+        console.error("Failed to load model data", err)
+      }
+    }
+
+    fetchModel()
+  }, [])
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -225,31 +311,6 @@ export default function AttendancePrediction() {
               opponent strength, and ticket sales to predict matchday attendance.
             </p>
 
-            {/* Status Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ 
-                opacity: 1, 
-                scale: 1,
-                borderColor: isPinkMode ? "rgba(255, 105, 180, 0.3)" : "rgba(245, 158, 11, 0.3)",
-                backgroundColor: isPinkMode ? "rgba(255, 105, 180, 0.1)" : "rgba(245, 158, 11, 0.1)"
-              }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-md"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              >
-                <Loader2 className="h-4 w-4" style={{ color: isPinkMode ? "#FF69B4" : "#fbbf24" }} />
-              </motion.div>
-              <span 
-                className="text-sm font-medium"
-                style={{ color: isPinkMode ? "#FFB6C1" : "#fcd34d" }}
-              >
-                {isPinkMode ? "Glam Mode: Activated" : "System: Backend Integration Pending"}
-              </span>
-            </motion.div>
           </motion.div>
 
           {/* Bento Grid */}
@@ -291,17 +352,23 @@ export default function AttendancePrediction() {
 
             {/* Prediction Card */}
             <div className="md:col-span-1">
-              <PredictionCard isPinkMode={isPinkMode} />
+              <PredictionCard
+                isPinkMode={isPinkMode}
+                predictedAttendance={latest?.predicted ?? 0}
+                actualAttendance={latest?.actual ?? undefined}
+                matchName={latest?.match ?? "Loading..."}
+                trendPct={latest?.trend_pct ?? 0}
+              />
             </div>
 
             {/* Factors Card */}
             <div className="md:col-span-1 lg:col-span-2">
-              <FactorsCard isPinkMode={isPinkMode} />
+              <FactorsCard isPinkMode={isPinkMode} factors={factorList} />
             </div>
 
             {/* History Chart - Full Width */}
             <div className="md:col-span-2 lg:col-span-3">
-              <HistoryChart isPinkMode={isPinkMode} />
+              <HistoryChart isPinkMode={isPinkMode} historyData={historyData} modelAccuracy={modelAccuracy} />
             </div>
           </div>
 
@@ -316,7 +383,7 @@ export default function AttendancePrediction() {
               Powered by OH Leuven Data Science Team
             </p>
             <p className="mt-1 text-xs text-white/30">
-              Mock data shown for demonstration purposes
+              Data powered by model output (not fake data)
             </p>
           </motion.footer>
         </main>

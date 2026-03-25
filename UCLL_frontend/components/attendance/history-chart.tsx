@@ -13,22 +13,14 @@ import {
   Legend,
 } from "recharts"
 
-const data = [
-  { match: "vs Gent", actual: 7200, predicted: 7050 },
-  { match: "vs Anderlecht", actual: 8900, predicted: 8600 },
-  { match: "vs Standard", actual: 7800, predicted: 8100 },
-  { match: "vs Antwerp", actual: 8200, predicted: 7900 },
-  { match: "vs Genk", actual: 7600, predicted: 7700 },
-  { match: "vs Mechelen", actual: 6900, predicted: 7100 },
-  { match: "vs Charleroi", actual: 7400, predicted: 7250 },
-  { match: "vs Brugge", predicted: 8450 },
-]
-
 interface HistoryChartProps {
   isPinkMode?: boolean
+  historyData: Array<{ match: string; actual: number; predicted: number }>
+  modelAccuracy?: number
 }
 
-export function HistoryChart({ isPinkMode = false }: HistoryChartProps) {
+export function HistoryChart({ isPinkMode = false, historyData, modelAccuracy }: HistoryChartProps) {
+  const data = historyData || []
   const primaryColor = isPinkMode ? "#FF69B4" : "#E20613"
   const secondaryColor = isPinkMode ? "#FFB6C1" : "#009640"
 
@@ -73,7 +65,7 @@ export function HistoryChart({ isPinkMode = false }: HistoryChartProps) {
         
         <div className="h-[280px]">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+            <AreaChart data={historyData || []} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
               <defs>
                 <linearGradient id="actualGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={secondaryColor} stopOpacity={0.3} />
@@ -85,6 +77,8 @@ export function HistoryChart({ isPinkMode = false }: HistoryChartProps) {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="currentColor" className="text-border" opacity={0.3} />
+              {/* Use local historyData passed from props */}
+
               <XAxis
                 dataKey="match"
                 tick={{ fontSize: 11 }}
@@ -147,7 +141,9 @@ export function HistoryChart({ isPinkMode = false }: HistoryChartProps) {
           transition={{ duration: 0.5 }}
         >
           <p className="text-xs text-muted-foreground">
-            Model Accuracy: <span className="font-bold" style={{ color: secondaryColor }}>94.2%</span> over last 7 matches
+            Model Accuracy: <span className="font-bold" style={{ color: secondaryColor }}>
+              {modelAccuracy ? `${modelAccuracy.toFixed(1)}%` : "--"}
+            </span> over last {data.length} matches
           </p>
         </motion.div>
       </Card>

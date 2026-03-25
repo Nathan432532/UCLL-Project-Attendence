@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "n_train": 56,
+    "n_test": 15,
+    "train_mae": 1279.29,
+    "test_mae": 909.52,
+    "r2_cv": 0.215,
+    "accuracy_pct": 86.4
+  },
+  "history": [
+    {
+      "date": "2022-07-30",
+      "match": "vs Westerlo",
+      "actual": 5565,
+      "predicted": 5518,
+      "tickets_sold_total": 5025,
+      "weather_temp_max_c": 25.8,
+      "weather_precipitation_mm": 0.0,
+      "opponent_tier": 2,
+      "is_big6": false
+    },
+    {
+      "date": "2022-10-01",
+      "match": "vs Union Saint-Gilloise",
+      "actual": 6290,
+      "predicted": 6178,
+      "tickets_sold_total": 5844,
+      "weather_temp_max_c": 17.8,
+      "weather_precipitation_mm": 9.8,
+      "opponent_tier": 2,
+      "is_big6": false
+    },
+    {
+      "date": "2022-10-15",
+      "match": "vs Genk",
+      "actual": 7238,
+      "predicted": 6459,
+      "tickets_sold_total": 6069,
+      "weather_temp_max_c": 17.8,
+      "weather_precipitation_mm": 2.7,
+      "opponent_tier": 2,
+      "is_big6": true
+    },
+    {
+      "date": "2023-01-17",
+      "match": "vs Eupen",
+      "actual": 3537,
+      "predicted": 4541,
+      "tickets_sold_total": 4889,
+      "weather_temp_max_c": 3.3,
+      "weather_precipitation_mm": 0.0,
+      "opponent_tier": 1,
+      "is_big6": false
+    },
+    {
+      "date": "2023-01-28",
+      "match": "vs Sint-Truiden",
+      "actual": 6399,
+      "predicted": 6991,
+      "tickets_sold_total": 6975,
+      "weather_temp_max_c": 2.5,
+      "weather_precipitation_mm": 0.0,
+      "opponent_tier": 2,
+      "is_big6": false
+    },
+    {
+      "date": "2023-02-26",
+      "match": "vs Antwerp",
+      "actual": 9331,
+      "predicted": 7811,
+      "tickets_sold_total": 5721,
+      "weather_temp_max_c": 4.2,
+      "weather_precipitation_mm": 0.0,
+      "opponent_tier": 3,
+      "is_big6": true
+    },
+    {
+      "date": "2023-08-18",
+      "match": "vs Antwerp",
+      "actual": 8577,
+      "predicted": 8505,
+      "tickets_sold_total": 6652,
+      "weather_temp_max_c": 26.3,
+      "weather_precipitation_mm": 0.0,
+      "opponent_tier": 3,
+      "is_big6": true
+    },
+    {
+      "date": "2023-10-22",
+      "match": "vs Sint-Truiden",
+      "actual": 7784,
+      "predicted": 7375,
+      "tickets_sold_total": 7617,
+      "weather_temp_max_c": 14.8,
+      "weather_precipitation_mm": 1.6,
+      "opponent_tier": 2,
+      "is_big6": false
+    },
+    {
+      "date": "2024-03-17",
+      "match": "vs Mechelen",
+      "actual": 11069,
+      "predicted": 7807,
+      "tickets_sold_total": 8194,
+      "weather_temp_max_c": 14.8,
+      "weather_precipitation_mm": 1.5,
+      "opponent_tier": 2,
+      "is_big6": true
+    },
+    {
+      "date": "2024-04-14",
+      "match": "vs Gent",
+      "actual": 4936,
+      "predicted": 6383,
+      "tickets_sold_total": 6280,
+      "weather_temp_max_c": 15.6,
+      "weather_precipitation_mm": 0.9,
+      "opponent_tier": 2,
+      "is_big6": false
+    },
+    {
+      "date": "2024-12-27",
+      "match": "vs Beerschot",
+      "actual": 6655,
+      "predicted": 7677,
+      "tickets_sold_total": 7956,
+      "weather_temp_max_c": 4.7,
+      "weather_precipitation_mm": 0.0,
+      "opponent_tier": 2,
+      "is_big6": false
+    },
+    {
+      "date": "2025-02-15",
+      "match": "vs Dender",
+      "actual": 5782,
+      "predicted": 6386,
+      "tickets_sold_total": 7743,
+      "weather_temp_max_c": 3.8,
+      "weather_precipitation_mm": 0.2,
+      "opponent_tier": 1,
+      "is_big6": false
+    },
+    {
+      "date": "2025-04-19",
+      "match": "vs Dender",
+      "actual": 4252,
+      "predicted": 4441,
+      "tickets_sold_total": 5154,
+      "weather_temp_max_c": 16.5,
+      "weather_precipitation_mm": 0.0,
+      "opponent_tier": 1,
+      "is_big6": false
+    },
+    {
+      "date": "2025-05-03",
+      "match": "vs Mechelen",
+      "actual": 5615,
+      "predicted": 5710,
+      "tickets_sold_total": 5310,
+      "weather_temp_max_c": 20.5,
+      "weather_precipitation_mm": 2.9,
+      "opponent_tier": 2,
+      "is_big6": true
+    },
+    {
+      "date": "2025-09-26",
+      "match": "vs Anderlecht",
+      "actual": 6977,
+      "predicted": 9467,
+      "tickets_sold_total": 8111,
+      "weather_temp_max_c": 15.2,
+      "weather_precipitation_mm": 0.1,
+      "opponent_tier": 3,
+      "is_big6": true
+    }
+  ],
+  "latest_prediction": {
+    "match": "vs Anderlecht",
+    "date": "2025-09-26",
+    "predicted": 9467,
+    "actual": 6977,
+    "trend_pct": 65.8,
+    "factors": {
+      "opponent": "vs Anderlecht",
+      "ticket_sales": 8111,
+      "weather": "15.2°C, 0.1mm",
+      "opponent_tier": 3,
+      "big6": true
+    }
+  }
+}
