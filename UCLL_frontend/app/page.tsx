@@ -8,9 +8,11 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { PredictionCard } from "@/components/attendance/prediction-card"
 import { FactorsCard } from "@/components/attendance/factors-card"
 import { HistoryChart } from "@/components/attendance/history-chart"
+import { PredictionInputForm } from "@/components/attendance/prediction-input-form"
 
 export default function AttendancePrediction() {
   const [isPinkMode, setIsPinkMode] = useState(false)
+  const [isFormOpen, setIsFormOpen] = useState(false)
   const clickCountRef = useRef(0)
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -135,7 +137,21 @@ export default function AttendancePrediction() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-3"
           >
+            <motion.button
+              onClick={() => setIsFormOpen(true)}
+              className="rounded-2xl px-6 py-2 font-semibold text-white transition-all"
+              style={{
+                background: isPinkMode
+                  ? "linear-gradient(to right, #FF69B4, #FFB6C1)"
+                  : "linear-gradient(to right, #E20613, #ff4d4d)",
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Add Match
+            </motion.button>
             <ThemeToggle />
           </motion.div>
         </header>
@@ -321,6 +337,13 @@ export default function AttendancePrediction() {
           </motion.footer>
         </main>
       </div>
+
+      {/* Prediction Input Form Modal */}
+      <PredictionInputForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        isPinkMode={isPinkMode}
+      />
     </div>
   )
 }
