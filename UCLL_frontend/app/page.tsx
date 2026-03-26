@@ -5,6 +5,7 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Brain, Loader2, Sparkles } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { AddMatchForm } from "@/components/attendance/add-match-form"
 import { PredictionCard } from "@/components/attendance/prediction-card"
 import { FactorsCard } from "@/components/attendance/factors-card"
 import { HistoryChart } from "@/components/attendance/history-chart"
@@ -221,7 +222,9 @@ export default function AttendancePrediction() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-3"
           >
+            <AddMatchForm isPinkMode={isPinkMode} />
             <ThemeToggle />
           </motion.div>
         </header>
