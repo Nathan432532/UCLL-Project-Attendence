@@ -128,22 +128,23 @@ const factorList: FactorListItem[] = latestFuture
 
   // Fetch model predictions from server API
   useEffect(() => {
-    async function fetchModel() {
-      try {
-        const response = await fetch("/api/matches")
-        if (!response.ok) {
-          throw new Error("Failed to load model data")
-        }
+  async function fetchModel() {
+    try {
+      // ADD THE TIMESTAMP HERE: ?t=${Date.now()}
+      const response = await fetch(`/api/matches?t=${Date.now()}`, {
+        cache: 'no-store', // This tells Next.js not to cache the result
+      })
+      if (!response.ok) throw new Error("Failed to load model data")
 
-        const data = await response.json()
-        setModelData(data)
-      } catch (err) {
-        console.error("Failed to load model data", err)
-      }
+      const data = await response.json()
+      setModelData(data)
+    } catch (err) {
+      console.error("Failed to load model data", err)
     }
+  }
 
-    fetchModel()
-  }, [])
+  fetchModel()
+}, [])
 
   return (
     <div className="relative min-h-screen overflow-hidden">

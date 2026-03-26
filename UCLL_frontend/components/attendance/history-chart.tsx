@@ -50,7 +50,7 @@ export function HistoryChart({ isPinkMode = false, historyData, modelAccuracy }:
         />
         
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="text-lg font-bold text-foreground">Attendance History</h3>
+          <h3 className="text-lg font-bold text-foreground">Attendance History  over last {data.length} matches</h3>
           <div className="flex items-center gap-4 text-xs">
             <div className="flex items-center gap-1.5">
               <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: secondaryColor }} />
@@ -92,7 +92,8 @@ export function HistoryChart({ isPinkMode = false, historyData, modelAccuracy }:
                 axisLine={false}
                 tickFormatter={(value) => `${(value / 1000).toFixed(1)}k`}
                 className="text-muted-foreground"
-                domain={[6000, 10000]}
+                // CHANGE THIS LINE:
+                domain={['dataMin - 1000', 'dataMax + 1000']} 
               />
               <Tooltip
                 contentStyle={{
@@ -141,9 +142,9 @@ export function HistoryChart({ isPinkMode = false, historyData, modelAccuracy }:
           transition={{ duration: 0.5 }}
         >
           <p className="text-xs text-muted-foreground">
-            Model Accuracy: <span className="font-bold" style={{ color: secondaryColor }}>
+            Total Accuracy: <span className="font-bold" style={{ color: secondaryColor }}>
               {modelAccuracy ? `${modelAccuracy.toFixed(1)}%` : "--"}
-            </span> over last {data.length} matches
+            </span>
           </p>
         </motion.div>
       </Card>

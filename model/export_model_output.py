@@ -210,6 +210,7 @@ for i, (_, row) in enumerate(historical.iterrows()):
         'position_gap': int(row['position_gap']),
     })
 
+history = history[-5:]
 latest    = history[-1] if history else None
 trend_pct = 0
 if latest and len(history) >= 2:
