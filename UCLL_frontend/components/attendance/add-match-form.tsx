@@ -38,6 +38,25 @@ const [formData, setFormData] = useState({
     }))
   }
 
+  const teams = [
+    "OH Leuven",
+    "Club Brugge",
+    "RSC Anderlecht",
+    "Union Saint-Gilloise",
+    "KRC Genk",
+    "Royal Antwerp FC",
+    "KAA Gent",
+    "Standard Liège",
+    "KV Mechelen",
+    "Cercle Brugge",
+    "Sporting Charleroi",
+    "Sint-Truiden VV",
+    "Westerlo",
+    "RWDM",
+    "Eupen",
+    "Kortrijk",
+  ]
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -126,15 +145,26 @@ const [formData, setFormData] = useState({
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Opponent Team */}
           <div className="space-y-2">
-            <Label htmlFor="opponentTeam">Opponent Team</Label>
-            <Input
+            <select
               id="opponentTeam"
               name="opponentTeam"
-              placeholder="e.g., Club Brugge"
               value={formData.opponentTeam}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  opponentTeam: e.target.value,
+                }))
+              }
+              className="w-full rounded-md border px-3 py-2"
               required
-            />
+            >
+              <option value="">Select a team</option>
+              {teams.map((team) => (
+                <option key={team} value={team}>
+                  {team}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Current Round */}
