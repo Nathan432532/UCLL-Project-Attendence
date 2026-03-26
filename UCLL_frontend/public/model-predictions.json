@@ -84,18 +84,74 @@
       "is_big6": false,
       "position_gap": 9,
       "phase_num": 3
+    },
+    {
+      "match": "vs Club Brugge",
+      "predicted": 9525,
+      "opponent_tier": 3,
+      "is_big6": true,
+      "position_gap": 11,
+      "phase_num": 1
+    },
+    {
+      "match": "vs RSC Anderlecht",
+      "predicted": 6941,
+      "opponent_tier": 2,
+      "is_big6": false,
+      "position_gap": 2,
+      "phase_num": 2
+    },
+    {
+      "match": "vs KAA Gent",
+      "predicted": 7135,
+      "opponent_tier": 2,
+      "is_big6": false,
+      "position_gap": 2,
+      "phase_num": 1
+    },
+    {
+      "match": "vs Union Saint-Gilloise",
+      "predicted": 6683,
+      "opponent_tier": 2,
+      "is_big6": false,
+      "position_gap": 12,
+      "phase_num": 2
+    },
+    {
+      "match": "vs Standard Liège",
+      "predicted": 6773,
+      "opponent_tier": 2,
+      "is_big6": false,
+      "position_gap": 16,
+      "phase_num": 1
+    },
+    {
+      "match": "vs Club Brugge",
+      "predicted": 9577,
+      "opponent_tier": 3,
+      "is_big6": true,
+      "position_gap": 9,
+      "phase_num": 1
+    },
+    {
+      "match": "vs KV Mechelen",
+      "predicted": 6644,
+      "opponent_tier": 2,
+      "is_big6": false,
+      "position_gap": 6,
+      "phase_num": 3
     }
   ],
   "latest_prediction": {
-    "match": "vs Dans",
-    "predicted": 6566,
+    "match": "vs KV Mechelen",
+    "predicted": 6644,
     "actual": null,
     "trend_pct": 30.4,
     "factors": {
-      "opponent": "Dans",
+      "opponent": "KV Mechelen",
       "opponent_tier": 2,
       "is_big6": false,
-      "position_gap": 9,
+      "position_gap": 6,
       "weather": "Cloudy",
       "phase_of_season": 3
     }

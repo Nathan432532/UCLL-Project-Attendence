@@ -78,6 +78,24 @@ export default function AttendancePrediction() {
   const historyData = modelData?.history ?? []
   const modelAccuracy = modelData?.meta?.accuracy_pct;
 
+  const historyDataWithLatest: { match: string; actual: number; predicted: number }[] = [
+    ...(modelData?.history ?? []).map(({ match, actual, predicted }) => ({
+      match,
+      actual,
+      predicted,
+    })),
+    modelData?.latest_prediction
+      ? {
+          match: modelData.latest_prediction.match,
+          actual: modelData.latest_prediction.actual ?? 0,
+          predicted: modelData.latest_prediction.predicted,
+        }
+      : undefined,
+  ].filter((item): item is { match: string; actual: number; predicted: number } => !!item)
+
+  const latestFuture = modelData?.future_predictions?.[modelData.future_predictions.length - 1]
+
+
   type FactorImpact = "positive" | "neutral" | "negative"
   type FactorListItem = {
     label: string
@@ -87,7 +105,7 @@ export default function AttendancePrediction() {
   }
 
   // Replace the factorList block with this:
-const latestFuture = modelData?.future_predictions?.[modelData.future_predictions.length - 1]
+
 
 const factorList: FactorListItem[] = latestFuture
   ? [
@@ -127,24 +145,23 @@ const factorList: FactorListItem[] = latestFuture
   : []
 
   // Fetch model predictions from server API
-  useEffect(() => {
-  async function fetchModel() {
+  const fetchModel = async () => {
     try {
-      // ADD THE TIMESTAMP HERE: ?t=${Date.now()}
       const response = await fetch(`/api/matches?t=${Date.now()}`, {
-        cache: 'no-store', // This tells Next.js not to cache the result
+        cache: 'no-store',
       })
       if (!response.ok) throw new Error("Failed to load model data")
-
       const data = await response.json()
+      console.log("History length", data.history.length)
       setModelData(data)
     } catch (err) {
       console.error("Failed to load model data", err)
     }
   }
 
-  fetchModel()
-}, [])
+  useEffect(() => {
+    fetchModel()
+  }, [])
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -242,7 +259,7 @@ const factorList: FactorListItem[] = latestFuture
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <AddMatchForm isPinkMode={isPinkMode} />
+            <AddMatchForm isPinkMode={isPinkMode} onMatchAdded={fetchModel} />
             <ThemeToggle />
           </motion.div>
         </header>
@@ -389,7 +406,7 @@ const factorList: FactorListItem[] = latestFuture
 
             {/* History Chart - Full Width */}
             <div className="md:col-span-2 lg:col-span-3">
-              <HistoryChart isPinkMode={isPinkMode} historyData={historyData} modelAccuracy={modelAccuracy} />
+              <HistoryChart isPinkMode={isPinkMode} historyData={historyDataWithLatest} modelAccuracy={modelAccuracy} />
             </div>
           </div>
 
