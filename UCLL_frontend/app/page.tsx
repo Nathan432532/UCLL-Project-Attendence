@@ -1,16 +1,49 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Brain, Loader2, Sparkles } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { AddMatchForm } from "@/components/attendance/add-match-form"
 import { PredictionCard } from "@/components/attendance/prediction-card"
 import { FactorsCard } from "@/components/attendance/factors-card"
 import { HistoryChart } from "@/components/attendance/history-chart"
 
+interface LatestPrediction {
+  match: string
+  predicted: number
+  actual: number | null
+  trend_pct: number
+  // factors no longer exists in the new model output
+}
+
+interface FuturePrediction {
+  match: string
+  predicted: number
+  opponent_tier: number
+  is_big6: boolean
+  position_gap: number
+  phase_num: number
+}
+
+interface ModelData {
+  meta: { n_test: number; n_train: number; train_mae: number; test_mae: number; r2_cv: number; accuracy_pct: number }
+  history: Array<{ match: string; actual: number; predicted: number; is_big6: boolean; position_gap: number }>
+  latest_prediction: LatestPrediction
+  future_predictions: FuturePrediction[]
+}
+
+interface ModelData {
+  meta: { n_test: number; n_train: number; train_mae: number; test_mae: number; r2_cv: number; accuracy_pct: number }
+  history: Array<{ match: string; actual: number; predicted: number; is_big6: boolean; position_gap: number }>
+  latest_prediction: LatestPrediction
+  future_predictions: FuturePrediction[]
+}
+
 export default function AttendancePrediction() {
   const [isPinkMode, setIsPinkMode] = useState(false)
+  const [modelData, setModelData] = useState<ModelData | null>(null)
   const clickCountRef = useRef(0)
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -40,6 +73,95 @@ export default function AttendancePrediction() {
 
   const accentColor = isPinkMode ? pinkPrimary : ohlRed
   const secondaryAccent = isPinkMode ? pinkSecondary : ohlGreen
+
+  const latest = modelData?.latest_prediction
+  const historyData = modelData?.history ?? []
+  const modelAccuracy = modelData?.meta?.accuracy_pct;
+
+  const historyDataWithLatest: { match: string; actual: number; predicted: number }[] = [
+    ...(modelData?.history ?? []).map(({ match, actual, predicted }) => ({
+      match,
+      actual,
+      predicted,
+    })),
+    modelData?.latest_prediction
+      ? {
+          match: modelData.latest_prediction.match,
+          actual: modelData.latest_prediction.actual ?? 0,
+          predicted: modelData.latest_prediction.predicted,
+        }
+      : undefined,
+  ].filter((item): item is { match: string; actual: number; predicted: number } => !!item)
+
+  const latestFuture = modelData?.future_predictions?.[modelData.future_predictions.length - 1]
+
+
+  type FactorImpact = "positive" | "neutral" | "negative"
+  type FactorListItem = {
+    label: string
+    value: string
+    detail: string
+    impact: FactorImpact
+  }
+
+  // Replace the factorList block with this:
+
+
+const factorList: FactorListItem[] = latestFuture
+  ? [
+      {
+        label: "Opponent Tier",
+        value: `Tier ${latestFuture.opponent_tier}`,
+        detail: latestFuture.match,
+        impact: (latestFuture.opponent_tier === 3
+          ? "positive"
+          : latestFuture.opponent_tier === 1
+            ? "negative"
+            : "neutral") as FactorImpact,
+      },
+      {
+        label: "Position Gap",
+        value: `${latestFuture.position_gap} places`,
+        detail: "Standing difference",
+        impact: (latestFuture.position_gap > 5
+          ? "positive"
+          : latestFuture.position_gap < 2
+            ? "negative"
+            : "neutral") as FactorImpact,
+      },
+      {
+        label: "Big 6",
+        value: latestFuture.is_big6 ? "Yes" : "No",
+        detail: latestFuture.is_big6 ? "High interest match" : "Standard match",
+        impact: latestFuture.is_big6 ? "positive" : "neutral",
+      },
+      {
+        label: "Season Phase",
+        value: latestFuture.phase_num === 1 ? "Beginning" : latestFuture.phase_num === 2 ? "Middle" : "End",
+        detail: "Phase of season",
+        impact: latestFuture.phase_num === 3 ? "positive" : "neutral",
+      },
+    ]
+  : []
+
+  // Fetch model predictions from server API
+  const fetchModel = async () => {
+    try {
+      const response = await fetch(`/api/matches?t=${Date.now()}`, {
+        cache: 'no-store',
+      })
+      if (!response.ok) throw new Error("Failed to load model data")
+      const data = await response.json()
+      console.log("History length", data.history.length)
+      setModelData(data)
+    } catch (err) {
+      console.error("Failed to load model data", err)
+    }
+  }
+
+  useEffect(() => {
+    fetchModel()
+  }, [])
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -135,7 +257,9 @@ export default function AttendancePrediction() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-3"
           >
+            <AddMatchForm isPinkMode={isPinkMode} onMatchAdded={fetchModel} />
             <ThemeToggle />
           </motion.div>
         </header>
@@ -225,31 +349,6 @@ export default function AttendancePrediction() {
               opponent strength, and ticket sales to predict matchday attendance.
             </p>
 
-            {/* Status Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ 
-                opacity: 1, 
-                scale: 1,
-                borderColor: isPinkMode ? "rgba(255, 105, 180, 0.3)" : "rgba(245, 158, 11, 0.3)",
-                backgroundColor: isPinkMode ? "rgba(255, 105, 180, 0.1)" : "rgba(245, 158, 11, 0.1)"
-              }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="mt-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-md"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              >
-                <Loader2 className="h-4 w-4" style={{ color: isPinkMode ? "#FF69B4" : "#fbbf24" }} />
-              </motion.div>
-              <span 
-                className="text-sm font-medium"
-                style={{ color: isPinkMode ? "#FFB6C1" : "#fcd34d" }}
-              >
-                {isPinkMode ? "Glam Mode: Activated" : "System: Backend Integration Pending"}
-              </span>
-            </motion.div>
           </motion.div>
 
           {/* Bento Grid */}
@@ -291,17 +390,23 @@ export default function AttendancePrediction() {
 
             {/* Prediction Card */}
             <div className="md:col-span-1">
-              <PredictionCard isPinkMode={isPinkMode} />
+              <PredictionCard
+                isPinkMode={isPinkMode}
+                predictedAttendance={latest?.predicted ?? 0}
+                actualAttendance={latest?.actual ?? undefined}
+                matchName={latest?.match ?? "Loading..."}
+                trendPct={latest?.trend_pct ?? 0}
+              />
             </div>
 
             {/* Factors Card */}
             <div className="md:col-span-1 lg:col-span-2">
-              <FactorsCard isPinkMode={isPinkMode} />
+              <FactorsCard isPinkMode={isPinkMode} factors={factorList} />
             </div>
 
             {/* History Chart - Full Width */}
             <div className="md:col-span-2 lg:col-span-3">
-              <HistoryChart isPinkMode={isPinkMode} />
+              <HistoryChart isPinkMode={isPinkMode} historyData={historyDataWithLatest} modelAccuracy={modelAccuracy} />
             </div>
           </div>
 
@@ -316,7 +421,7 @@ export default function AttendancePrediction() {
               Powered by OH Leuven Data Science Team
             </p>
             <p className="mt-1 text-xs text-white/30">
-              Mock data shown for demonstration purposes
+              Data powered by model output (not fake data)
             </p>
           </motion.footer>
         </main>

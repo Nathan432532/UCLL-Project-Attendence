@@ -6,9 +6,19 @@ import { Card } from "@/components/ui/card"
 
 interface PredictionCardProps {
   isPinkMode?: boolean
+  predictedAttendance: number
+  actualAttendance?: number
+  matchName: string
+  trendPct?: number
 }
 
-export function PredictionCard({ isPinkMode = false }: PredictionCardProps) {
+export function PredictionCard({
+  isPinkMode = false,
+  predictedAttendance,
+  actualAttendance,
+  matchName,
+  trendPct,
+}: PredictionCardProps) {
   const primaryColor = isPinkMode ? "#FF69B4" : "#E20613"
   const secondaryColor = isPinkMode ? "#FFB6C1" : "#009640"
   
@@ -55,6 +65,11 @@ export function PredictionCard({ isPinkMode = false }: PredictionCardProps) {
           </div>
         </div>
 
+        <div className="mb-4">
+          <p className="text-xs text-muted-foreground">Next Home Match</p>
+          <p className="text-lg font-semibold text-foreground">{matchName}</p>
+        </div>
+
         <div className="mb-4 flex items-baseline gap-2">
           <motion.span
             initial={{ opacity: 0, scale: 0.5 }}
@@ -62,10 +77,18 @@ export function PredictionCard({ isPinkMode = false }: PredictionCardProps) {
             transition={{ delay: 0.4, type: "spring" }}
             className="text-5xl font-black text-foreground"
           >
-            8,450
+            {predictedAttendance.toLocaleString()}
           </motion.span>
           <span className="text-lg font-medium text-muted-foreground">fans</span>
         </div>
+
+        <motion.div 
+          className="mb-2"
+        >
+          <p className="text-xs text-muted-foreground">
+            Actual real attendance: {actualAttendance ? actualAttendance.toLocaleString() : "N/A"}
+          </p>
+        </motion.div>
 
         <motion.div 
           className="flex items-center gap-2 rounded-2xl px-3 py-2"
@@ -78,7 +101,7 @@ export function PredictionCard({ isPinkMode = false }: PredictionCardProps) {
         >
           <TrendingUp className="h-4 w-4" style={{ color: secondaryColor }} />
           <span className="text-sm font-semibold" style={{ color: secondaryColor }}>
-            +12% vs last match
+            {trendPct === undefined ? "Loading trend..." : `${trendPct >= 0 ? '+' : ''}${trendPct}% vs last match`}
           </span>
         </motion.div>
       </Card>
