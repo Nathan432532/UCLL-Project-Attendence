@@ -12,23 +12,33 @@ import { HistoryChart } from "@/components/attendance/history-chart"
 
 interface LatestPrediction {
   match: string
-  date: string
   predicted: number
-  actual: number
+  actual: number | null
   trend_pct: number
-  factors: {
-    opponent: string
-    ticket_sales: number
-    weather: string
-    opponent_tier: number
-    big6: boolean
-  }
+  // factors no longer exists in the new model output
+}
+
+interface FuturePrediction {
+  match: string
+  predicted: number
+  opponent_tier: number
+  is_big6: boolean
+  position_gap: number
+  phase_num: number
 }
 
 interface ModelData {
   meta: { n_test: number; n_train: number; train_mae: number; test_mae: number; r2_cv: number; accuracy_pct: number }
-  history: Array<{ match: string; actual: number; predicted: number }>
+  history: Array<{ match: string; actual: number; predicted: number; is_big6: boolean; position_gap: number }>
   latest_prediction: LatestPrediction
+  future_predictions: FuturePrediction[]
+}
+
+interface ModelData {
+  meta: { n_test: number; n_train: number; train_mae: number; test_mae: number; r2_cv: number; accuracy_pct: number }
+  history: Array<{ match: string; actual: number; predicted: number; is_big6: boolean; position_gap: number }>
+  latest_prediction: LatestPrediction
+  future_predictions: FuturePrediction[]
 }
 
 export default function AttendancePrediction() {
@@ -76,44 +86,51 @@ export default function AttendancePrediction() {
     impact: FactorImpact
   }
 
-  const factorList: FactorListItem[] = latest
-    ? [
-        {
-          label: "Weather",
-          value: latest.factors.weather,
-          detail: `Forecast for ${latest.date}`,
-          impact: "positive",
-        },
-        {
-          label: "Opponent Tier",
-          value: `Tier ${latest.factors.opponent_tier}`,
-          detail: latest.factors.opponent,
-          impact: (latest.factors.opponent_tier === 3
-            ? "positive"
-            : latest.factors.opponent_tier === 1
-              ? "negative"
-              : "neutral") as FactorImpact,
-        },
-        {
-          label: "Ticket Sales",
-          value: `${latest.factors.ticket_sales?.toLocaleString() ?? "N/A"} sold`,
-          detail: "Historic count",
-          impact: "neutral",
-        },
-        {
-          label: "Big 6",
-          value: latest.factors.big6 ? "Yes" : "No",
-          detail: latest.factors.big6 ? "High interest" : "Standard interest",
-          impact: latest.factors.big6 ? "positive" : "neutral",
-        },
-      ]
-    : []
+  // Replace the factorList block with this:
+const latestFuture = modelData?.future_predictions?.[modelData.future_predictions.length - 1]
+
+const factorList: FactorListItem[] = latestFuture
+  ? [
+      {
+        label: "Opponent Tier",
+        value: `Tier ${latestFuture.opponent_tier}`,
+        detail: latestFuture.match,
+        impact: (latestFuture.opponent_tier === 3
+          ? "positive"
+          : latestFuture.opponent_tier === 1
+            ? "negative"
+            : "neutral") as FactorImpact,
+      },
+      {
+        label: "Position Gap",
+        value: `${latestFuture.position_gap} places`,
+        detail: "Standing difference",
+        impact: (latestFuture.position_gap > 5
+          ? "positive"
+          : latestFuture.position_gap < 2
+            ? "negative"
+            : "neutral") as FactorImpact,
+      },
+      {
+        label: "Big 6",
+        value: latestFuture.is_big6 ? "Yes" : "No",
+        detail: latestFuture.is_big6 ? "High interest match" : "Standard match",
+        impact: latestFuture.is_big6 ? "positive" : "neutral",
+      },
+      {
+        label: "Season Phase",
+        value: latestFuture.phase_num === 1 ? "Beginning" : latestFuture.phase_num === 2 ? "Middle" : "End",
+        detail: "Phase of season",
+        impact: latestFuture.phase_num === 3 ? "positive" : "neutral",
+      },
+    ]
+  : []
 
   // Fetch model predictions from server API
   useEffect(() => {
     async function fetchModel() {
       try {
-        const response = await fetch("/api/model-data")
+        const response = await fetch("/api/matches")
         if (!response.ok) {
           throw new Error("Failed to load model data")
         }

@@ -21,12 +21,13 @@ interface AddMatchFormProps {
 
 export function AddMatchForm({ isPinkMode = false }: AddMatchFormProps) {
   const [open, setOpen] = useState(false)
-  const [formData, setFormData] = useState({
-    opponentTeam: "",
-    currentRound: "",
-    totalRounds: "",
-    opponentStanding: "",
-  })
+const [formData, setFormData] = useState({
+  opponentTeam:     "",
+  currentRound:     "",
+  totalRounds:      "",
+  opponentStanding: "",
+  OHLStanding:      "",
+})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,11 +49,12 @@ export function AddMatchForm({ isPinkMode = false }: AddMatchFormProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          opponent: formData.opponentTeam,
-          round: parseInt(formData.currentRound),
-          totalRounds: parseInt(formData.totalRounds),
-          opponentStanding: parseInt(formData.opponentStanding),
+      body: JSON.stringify({
+        opponent:         formData.opponentTeam,
+        currentRound:     formData.currentRound,
+        totalRounds:      formData.totalRounds,
+        opponentStanding: formData.opponentStanding,
+        OHLStanding:      formData.OHLStanding,
         }),
       })
 
@@ -66,6 +68,7 @@ export function AddMatchForm({ isPinkMode = false }: AddMatchFormProps) {
         currentRound: "",
         totalRounds: "",
         opponentStanding: "",
+        OHLStanding: "",
       })
       setOpen(false)
 
@@ -175,6 +178,21 @@ export function AddMatchForm({ isPinkMode = false }: AddMatchFormProps) {
               type="number"
               placeholder="e.g., 3 (for 3rd place)"
               value={formData.opponentStanding}
+              onChange={handleInputChange}
+              min="1"
+              required
+            />
+          </div>
+
+          {/* OHL Standing */}
+          <div className="space-y-2">
+            <Label htmlFor="OHLStanding">OHL's Championship Standing</Label>
+            <Input
+              id="OHLstanding"
+              name="OHLStanding"
+              type="number"
+              placeholder="e.g., 1 (for 1st place)"
+              value={formData.OHLStanding}
               onChange={handleInputChange}
               min="1"
               required

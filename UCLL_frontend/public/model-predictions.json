@@ -2,241 +2,548 @@
   "meta": {
     "n_train": 56,
     "n_test": 15,
-    "train_mae": 1225.2,
-    "test_mae": 927.81,
-    "r2_cv": 0.124,
-    "accuracy_pct": 86.1
+    "train_mae": 1385.46,
+    "test_mae": 1173.1,
+    "r2_cv": 0.004,
+    "accuracy_pct": 82.4
   },
   "history": [
     {
-      "date": "2022-07-30",
       "match": "vs Westerlo",
       "actual": 5565,
-      "predicted": 5241,
-      "tickets_sold_total": 5025,
-      "weather_temp_max_c": 25.8,
-      "weather_precipitation_mm": 0.0,
-      "opponent_tier": 2,
+      "predicted": 7187,
       "is_big6": false,
-      "phase_of_season": "Beggining",
-      "phase_of_season_num": 1,
       "position_gap": 0
     },
     {
-      "date": "2022-10-01",
-      "match": "vs Union Saint-Gilloise",
-      "actual": 6290,
-      "predicted": 6549,
-      "tickets_sold_total": 5844,
-      "weather_temp_max_c": 17.8,
-      "weather_precipitation_mm": 9.8,
-      "opponent_tier": 2,
+      "match": "vs Club Brugge",
+      "actual": 7440,
+      "predicted": 9706,
+      "is_big6": true,
+      "position_gap": 4
+    },
+    {
+      "match": "vs KV Oostende",
+      "actual": 4489,
+      "predicted": 5456,
       "is_big6": false,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
+      "position_gap": 4
+    },
+    {
+      "match": "vs Sporting Charleroi",
+      "actual": 4508,
+      "predicted": 5508,
+      "is_big6": false,
       "position_gap": 2
     },
     {
-      "date": "2022-10-15",
+      "match": "vs Union Saint-Gilloise",
+      "actual": 6290,
+      "predicted": 7135,
+      "is_big6": false,
+      "position_gap": 2
+    },
+    {
       "match": "vs Genk",
       "actual": 7238,
-      "predicted": 7543,
-      "tickets_sold_total": 6069,
-      "weather_temp_max_c": 17.8,
-      "weather_precipitation_mm": 2.7,
-      "opponent_tier": 2,
+      "predicted": 7097,
       "is_big6": true,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
       "position_gap": 3
     },
     {
-      "date": "2023-01-17",
-      "match": "vs Eupen",
-      "actual": 3537,
-      "predicted": 5460,
-      "tickets_sold_total": 4889,
-      "weather_temp_max_c": 3.3,
-      "weather_precipitation_mm": 0.0,
-      "opponent_tier": 1,
-      "is_big6": false,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
-      "position_gap": 6
-    },
-    {
-      "date": "2023-01-28",
-      "match": "vs Sint-Truiden",
-      "actual": 6399,
-      "predicted": 6546,
-      "tickets_sold_total": 6975,
-      "weather_temp_max_c": 2.5,
-      "weather_precipitation_mm": 0.0,
-      "opponent_tier": 2,
-      "is_big6": false,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
-      "position_gap": 1
-    },
-    {
-      "date": "2023-02-26",
-      "match": "vs Antwerp",
-      "actual": 9331,
-      "predicted": 10512,
-      "tickets_sold_total": 5721,
-      "weather_temp_max_c": 4.2,
-      "weather_precipitation_mm": 0.0,
-      "opponent_tier": 3,
-      "is_big6": true,
-      "phase_of_season": "End",
-      "phase_of_season_num": 3,
-      "position_gap": 8
-    },
-    {
-      "date": "2023-08-18",
-      "match": "vs Antwerp",
-      "actual": 8577,
-      "predicted": 7920,
-      "tickets_sold_total": 6652,
-      "weather_temp_max_c": 26.3,
-      "weather_precipitation_mm": 0.0,
-      "opponent_tier": 3,
-      "is_big6": true,
-      "phase_of_season": "Beggining",
-      "phase_of_season_num": 1,
-      "position_gap": 11
-    },
-    {
-      "date": "2023-10-22",
-      "match": "vs Sint-Truiden",
-      "actual": 7784,
-      "predicted": 6558,
-      "tickets_sold_total": 7617,
-      "weather_temp_max_c": 14.8,
-      "weather_precipitation_mm": 1.6,
-      "opponent_tier": 2,
-      "is_big6": false,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
-      "position_gap": 5
-    },
-    {
-      "date": "2024-03-17",
-      "match": "vs Mechelen",
-      "actual": 11069,
-      "predicted": 8857,
-      "tickets_sold_total": 8194,
-      "weather_temp_max_c": 14.8,
-      "weather_precipitation_mm": 1.5,
-      "opponent_tier": 2,
-      "is_big6": true,
-      "phase_of_season": "End",
-      "phase_of_season_num": 3,
-      "position_gap": 7
-    },
-    {
-      "date": "2024-04-14",
       "match": "vs Gent",
-      "actual": 4936,
-      "predicted": 5270,
-      "tickets_sold_total": 6280,
-      "weather_temp_max_c": 15.6,
-      "weather_precipitation_mm": 0.9,
-      "opponent_tier": 2,
+      "actual": 7166,
+      "predicted": 6941,
       "is_big6": false,
-      "phase_of_season": "Beggining",
-      "phase_of_season_num": 1,
-      "position_gap": 9
-    },
-    {
-      "date": "2024-12-27",
-      "match": "vs Beerschot",
-      "actual": 6655,
-      "predicted": 6555,
-      "tickets_sold_total": 7956,
-      "weather_temp_max_c": 4.7,
-      "weather_precipitation_mm": 0.0,
-      "opponent_tier": 2,
-      "is_big6": false,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
-      "position_gap": 4
-    },
-    {
-      "date": "2025-02-15",
-      "match": "vs Dender",
-      "actual": 5782,
-      "predicted": 6748,
-      "tickets_sold_total": 7743,
-      "weather_temp_max_c": 3.8,
-      "weather_precipitation_mm": 0.2,
-      "opponent_tier": 1,
-      "is_big6": false,
-      "phase_of_season": "End",
-      "phase_of_season_num": 3,
       "position_gap": 2
     },
     {
-      "date": "2025-04-19",
-      "match": "vs Dender",
-      "actual": 4252,
-      "predicted": 4153,
-      "tickets_sold_total": 5154,
-      "weather_temp_max_c": 16.5,
-      "weather_precipitation_mm": 0.0,
-      "opponent_tier": 1,
+      "match": "vs Seraing",
+      "actual": 5285,
+      "predicted": 5133,
       "is_big6": false,
-      "phase_of_season": "Beggining",
-      "phase_of_season_num": 1,
+      "position_gap": 9
+    },
+    {
+      "match": "vs Kortrijk",
+      "actual": 3766,
+      "predicted": 5133,
+      "is_big6": false,
+      "position_gap": 9
+    },
+    {
+      "match": "vs Eupen",
+      "actual": 3537,
+      "predicted": 5211,
+      "is_big6": false,
+      "position_gap": 6
+    },
+    {
+      "match": "vs Sint-Truiden",
+      "actual": 6399,
+      "predicted": 6967,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Cercle Brugge",
+      "actual": 4721,
+      "predicted": 5120,
+      "is_big6": false,
+      "position_gap": 2
+    },
+    {
+      "match": "vs Antwerp",
+      "actual": 9331,
+      "predicted": 9215,
+      "is_big6": true,
+      "position_gap": 8
+    },
+    {
+      "match": "vs Zulte Waregem",
+      "actual": 7785,
+      "predicted": 6696,
+      "is_big6": false,
       "position_gap": 4
     },
     {
-      "date": "2025-05-03",
-      "match": "vs Mechelen",
-      "actual": 5615,
-      "predicted": 7549,
-      "tickets_sold_total": 5310,
-      "weather_temp_max_c": 20.5,
-      "weather_precipitation_mm": 2.9,
-      "opponent_tier": 2,
+      "match": "vs Anderlecht",
+      "actual": 10827,
+      "predicted": 9396,
       "is_big6": true,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Mechelen",
+      "actual": 8310,
+      "predicted": 6929,
+      "is_big6": true,
+      "position_gap": 2
+    },
+    {
+      "match": "vs Standard Liège",
+      "actual": 10079,
+      "predicted": 6670,
+      "is_big6": false,
       "position_gap": 5
     },
     {
-      "date": "2025-09-26",
+      "match": "vs RWDM",
+      "actual": 7786,
+      "predicted": 6928,
+      "is_big6": false,
+      "position_gap": 10
+    },
+    {
+      "match": "vs Antwerp",
+      "actual": 8577,
+      "predicted": 9525,
+      "is_big6": true,
+      "position_gap": 11
+    },
+    {
+      "match": "vs Kortrijk",
+      "actual": 9144,
+      "predicted": 5508,
+      "is_big6": false,
+      "position_gap": 2
+    },
+    {
+      "match": "vs Gent",
+      "actual": 9598,
+      "predicted": 6902,
+      "is_big6": false,
+      "position_gap": 11
+    },
+    {
+      "match": "vs Standard Liège",
+      "actual": 9211,
+      "predicted": 7161,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Sint-Truiden",
+      "actual": 7784,
+      "predicted": 7057,
+      "is_big6": false,
+      "position_gap": 5
+    },
+    {
+      "match": "vs Westerlo",
+      "actual": 9240,
+      "predicted": 6915,
+      "is_big6": false,
+      "position_gap": 3
+    },
+    {
+      "match": "vs Club Brugge",
+      "actual": 10546,
+      "predicted": 9435,
+      "is_big6": true,
+      "position_gap": 7
+    },
+    {
+      "match": "vs Cercle Brugge",
+      "actual": 8038,
+      "predicted": 5159,
+      "is_big6": false,
+      "position_gap": 8
+    },
+    {
+      "match": "vs Eupen",
+      "actual": 7863,
+      "predicted": 5340,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Anderlecht",
+      "actual": 10786,
+      "predicted": 9305,
+      "is_big6": true,
+      "position_gap": 12
+    },
+    {
+      "match": "vs Genk",
+      "actual": 7846,
+      "predicted": 6916,
+      "is_big6": true,
+      "position_gap": 10
+    },
+    {
+      "match": "vs Sporting Charleroi",
+      "actual": 9228,
+      "predicted": 5340,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Union Saint-Gilloise",
+      "actual": 9789,
+      "predicted": 6515,
+      "is_big6": false,
+      "position_gap": 11
+    },
+    {
+      "match": "vs Mechelen",
+      "actual": 11069,
+      "predicted": 6800,
+      "is_big6": true,
+      "position_gap": 7
+    },
+    {
+      "match": "vs Mechelen",
+      "actual": 6701,
+      "predicted": 6878,
+      "is_big6": true,
+      "position_gap": 4
+    },
+    {
+      "match": "vs Gent",
+      "actual": 4936,
+      "predicted": 6566,
+      "is_big6": false,
+      "position_gap": 9
+    },
+    {
+      "match": "vs Sint-Truiden",
+      "actual": 4350,
+      "predicted": 6566,
+      "is_big6": false,
+      "position_gap": 9
+    },
+    {
+      "match": "vs Standard Liège",
+      "actual": 4913,
+      "predicted": 6747,
+      "is_big6": false,
+      "position_gap": 2
+    },
+    {
+      "match": "vs Westerlo",
+      "actual": 5907,
+      "predicted": 6721,
+      "is_big6": false,
+      "position_gap": 3
+    },
+    {
+      "match": "vs Genk",
+      "actual": 5583,
+      "predicted": 7369,
+      "is_big6": true,
+      "position_gap": 0
+    },
+    {
+      "match": "vs Cercle Brugge",
+      "actual": 5528,
+      "predicted": 5456,
+      "is_big6": false,
+      "position_gap": 4
+    },
+    {
+      "match": "vs Standard Liège",
+      "actual": 8958,
+      "predicted": 7161,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Kortrijk",
+      "actual": 6061,
+      "predicted": 5430,
+      "is_big6": false,
+      "position_gap": 5
+    },
+    {
+      "match": "vs Antwerp",
+      "actual": 6921,
+      "predicted": 9603,
+      "is_big6": true,
+      "position_gap": 8
+    },
+    {
+      "match": "vs Club Brugge",
+      "actual": 10485,
+      "predicted": 9603,
+      "is_big6": true,
+      "position_gap": 8
+    },
+    {
+      "match": "vs Union Saint-Gilloise",
+      "actual": 6344,
+      "predicted": 6838,
+      "is_big6": false,
+      "position_gap": 6
+    },
+    {
+      "match": "vs Anderlecht",
+      "actual": 10723,
+      "predicted": 9409,
+      "is_big6": true,
+      "position_gap": 8
+    },
+    {
+      "match": "vs Sporting Charleroi",
+      "actual": 5641,
+      "predicted": 5314,
+      "is_big6": false,
+      "position_gap": 2
+    },
+    {
+      "match": "vs Beerschot",
+      "actual": 6655,
+      "predicted": 6889,
+      "is_big6": false,
+      "position_gap": 4
+    },
+    {
+      "match": "vs Gent",
+      "actual": 5550,
+      "predicted": 6838,
+      "is_big6": false,
+      "position_gap": 6
+    },
+    {
+      "match": "vs Mechelen",
+      "actual": 6619,
+      "predicted": 7149,
+      "is_big6": true,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Dender",
+      "actual": 5782,
+      "predicted": 5314,
+      "is_big6": false,
+      "position_gap": 2
+    },
+    {
+      "match": "vs Westerlo",
+      "actual": 7097,
+      "predicted": 6696,
+      "is_big6": false,
+      "position_gap": 4
+    },
+    {
+      "match": "vs Sint-Truiden",
+      "actual": 7689,
+      "predicted": 6721,
+      "is_big6": false,
+      "position_gap": 3
+    },
+    {
+      "match": "vs Sporting Charleroi",
+      "actual": 4241,
+      "predicted": 5146,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Dender",
+      "actual": 4252,
+      "predicted": 5068,
+      "is_big6": false,
+      "position_gap": 4
+    },
+    {
+      "match": "vs Standard Liège",
+      "actual": 5164,
+      "predicted": 6773,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Mechelen",
+      "actual": 5615,
+      "predicted": 6852,
+      "is_big6": true,
+      "position_gap": 5
+    },
+    {
+      "match": "vs Westerlo",
+      "actual": 5025,
+      "predicted": 6773,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Sporting Charleroi",
+      "actual": 4318,
+      "predicted": 5482,
+      "is_big6": false,
+      "position_gap": 3
+    },
+    {
+      "match": "vs Genk",
+      "actual": 6360,
+      "predicted": 7317,
+      "is_big6": true,
+      "position_gap": 2
+    },
+    {
+      "match": "vs Standard Liège",
+      "actual": 6676,
+      "predicted": 7006,
+      "is_big6": false,
+      "position_gap": 7
+    },
+    {
+      "match": "vs RAAL La Louvière",
+      "actual": 4036,
+      "predicted": 7135,
+      "is_big6": false,
+      "position_gap": 2
+    },
+    {
       "match": "vs Anderlecht",
       "actual": 6977,
-      "predicted": 9227,
-      "tickets_sold_total": 8111,
-      "weather_temp_max_c": 15.2,
-      "weather_precipitation_mm": 0.1,
+      "predicted": 9280,
+      "is_big6": true,
+      "position_gap": 13
+    },
+    {
+      "match": "vs Club Brugge",
+      "actual": 7992,
+      "predicted": 9280,
+      "is_big6": true,
+      "position_gap": 13
+    },
+    {
+      "match": "vs Gent",
+      "actual": 6373,
+      "predicted": 6683,
+      "is_big6": false,
+      "position_gap": 12
+    },
+    {
+      "match": "vs Sint-Truiden",
+      "actual": 5661,
+      "predicted": 6760,
+      "is_big6": false,
+      "position_gap": 9
+    },
+    {
+      "match": "vs Zulte Waregem",
+      "actual": 4494,
+      "predicted": 6838,
+      "is_big6": false,
+      "position_gap": 6
+    },
+    {
+      "match": "vs Cercle Brugge",
+      "actual": 5812,
+      "predicted": 5146,
+      "is_big6": false,
+      "position_gap": 1
+    },
+    {
+      "match": "vs Union Saint-Gilloise",
+      "actual": 5322,
+      "predicted": 6437,
+      "is_big6": false,
+      "position_gap": 14
+    },
+    {
+      "match": "vs Mechelen",
+      "actual": 5971,
+      "predicted": 6748,
+      "is_big6": true,
+      "position_gap": 9
+    },
+    {
+      "match": "vs Dender",
+      "actual": 5137,
+      "predicted": 5094,
+      "is_big6": false,
+      "position_gap": 3
+    },
+    {
+      "match": "vs Westerlo",
+      "actual": 6062,
+      "predicted": 6644,
+      "is_big6": false,
+      "position_gap": 6
+    }
+  ],
+  "future_predictions": [
+    {
+      "match": "vs Dans",
+      "predicted": 6721,
+      "opponent_tier": 2,
+      "is_big6": false,
+      "position_gap": 3,
+      "phase_num": 3
+    },
+    {
+      "match": "vs Brugge",
+      "predicted": 6437,
+      "opponent_tier": 2,
+      "is_big6": false,
+      "position_gap": 14,
+      "phase_num": 3
+    },
+    {
+      "match": "vs Antwerp",
+      "predicted": 9344,
       "opponent_tier": 3,
       "is_big6": true,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
-      "position_gap": 13
+      "position_gap": 3,
+      "phase_num": 3
     }
   ],
   "latest_prediction": {
-    "match": "vs Anderlecht",
-    "date": "2025-09-26",
-    "predicted": 9227,
-    "actual": 6977,
-    "trend_pct": 22.2,
+    "match": "vs Antwerp",
+    "predicted": 9344,
+    "actual": null,
+    "trend_pct": 30.4,
     "factors": {
-      "opponent": "vs Anderlecht",
-      "ticket_sales": 8111,
-      "weather": "15.2°C, 0.1mm",
+      "opponent": "Antwerp",
       "opponent_tier": 3,
-      "big6": true,
-      "phase_of_season": "Midle",
-      "phase_of_season_num": 2,
-      "position_gap": 13,
-      "match_hype": 0.0,
-      "home_form_recent": 0.0,
-      "weather_misery_index": 0.0
+      "is_big6": true,
+      "position_gap": 3,
+      "weather": "Cloudy",
+      "phase_of_season": 3
     }
   }
 }
